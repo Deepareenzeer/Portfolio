@@ -1,4 +1,6 @@
-export default ({ env }) => ({
+// config/admin.ts
+
+export default ({ env }: { env: any }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
@@ -11,7 +13,7 @@ export default ({ env }) => ({
     },
   },
   flags: {
-    nps: env.bool('FLAG_NPS', true),
-    promoteEE: env.bool('FLAG_PROMOTE_EE', true),
+    nps: env.bool?.('FLAG_NPS', true),
+    promoteEE: env.bool?.('FLAG_PROMOTE_EE', true),
   },
 });
