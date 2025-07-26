@@ -11,4 +11,5 @@ export default ({ env }: { env: StrapiEnv }) => ({
   app: {
     keys: env.array('APP_KEYS', ['someSecretKey']),
   },
+  
 });
