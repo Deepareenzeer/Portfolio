@@ -85,4 +85,6 @@ export default ({ env }: { env: StrapiEnv }) => {
       acquireConnectionTimeout: env.int('DATABASE_CONNECTION_TIMEOUT', 60000),
     },
   };
+
+  
 };
