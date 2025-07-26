@@ -14,4 +14,5 @@ export default ( { env }: { env: (key: string) => string } ) => ({
     nps: env('FLAG_NPS') === 'true' || true,
     promoteEE: env('FLAG_PROMOTE_EE') === 'true' || true,
   },
+  
 });
