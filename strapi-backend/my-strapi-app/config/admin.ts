@@ -1,4 +1,4 @@
-export default ({ env }: { env: any }) => ({
+export default ( { env }: { env: (key: string) => string } ) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
@@ -11,7 +11,6 @@ export default ({ env }: { env: any }) => ({
     },
   },
   flags: {
-    // แปลงเป็น boolean เอง
     nps: env('FLAG_NPS') === 'true' || true,
     promoteEE: env('FLAG_PROMOTE_EE') === 'true' || true,
   },
