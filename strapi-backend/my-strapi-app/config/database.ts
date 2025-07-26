@@ -84,7 +84,10 @@ export default ({ env }: { env: StrapiEnv }) => {
       ...connections[client],
       acquireConnectionTimeout: env.int('DATABASE_CONNECTION_TIMEOUT', 60000),
     },
+    settings: {
+      strict: {
+        groupBy: client === 'postgres' ? false : true,  // <-- เพิ่มตรงนี้ ปิด strict groupBy เฉพาะ Postgres
+      },
+    },
   };
-
-  
 };
