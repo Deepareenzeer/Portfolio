@@ -1,5 +1,3 @@
-// config/admin.ts
-
 export default ({ env }: { env: any }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
@@ -13,7 +11,8 @@ export default ({ env }: { env: any }) => ({
     },
   },
   flags: {
-    nps: env.bool?.('FLAG_NPS', true),
-    promoteEE: env.bool?.('FLAG_PROMOTE_EE', true),
+    // แปลงเป็น boolean เอง
+    nps: env('FLAG_NPS') === 'true' || true,
+    promoteEE: env('FLAG_PROMOTE_EE') === 'true' || true,
   },
 });
