@@ -10,7 +10,7 @@ interface StrapiEnv {
 }
 
 export default ({ env }: { env: StrapiEnv }) => {
-  const client = env('DATABASE_CLIENT', 'sqlite');
+  const client = env('DATABASE_CLIENT', 'sqlite') as keyof typeof connections;
 
   const connections = {
     mysql: {
