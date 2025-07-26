@@ -1,6 +1,15 @@
 import path from 'path';
 
-export default ({ env }) => {
+/**
+ * สร้าง Interface เพื่อกำหนด Type ของ env helper ให้สมบูรณ์
+ */
+interface StrapiEnv {
+  (key: string, defaultValue?: any): any;
+  int(key: string, defaultValue?: number): number;
+  bool(key: string, defaultValue?: boolean): boolean;
+}
+
+export default ({ env }: { env: StrapiEnv }) => {
   const client = env('DATABASE_CLIENT', 'sqlite');
 
   const connections = {
