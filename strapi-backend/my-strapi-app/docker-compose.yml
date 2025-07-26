@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  strapi:
+    container_name: strapi-app
+    image: strapi/strapi:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT:-postgres}
+      DATABASE_HOST: ${DATABASE_HOST:-postgres}
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
+      DATABASE_NAME: ${DATABASE_NAME:-strapi}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      STRAPI_URL: ${STRAPI_URL:-http://localhost:1337}
+    ports:
+      - "1337:1337"
+    volumes:
+      - ./src/api:/opt/app/src/api
+      - ./src/components:/opt/app/src/components
+      - ./src/extensions:/opt/app/src/extensions
+      - ./src/plugins:/opt/app/src/plugins
+      - ./src/middlewares:/opt/app/src/middlewares
+      - ./src/config:/opt/app/src/config
+      - ./src/admin:/opt/app/src/admin
+      - ./src/bootstrap.js:/opt/app/src/bootstrap.js
+      - ./src/index.js:/opt/app/src/index.js
+      - ./src/policies:/opt/app/src/policies
+      - ./src/schemas:/opt/app/src/schemas
+      - ./public/uploads:/opt/app/public/uploads
+      - ./data:/opt/app/data
+      - ./node_modules:/opt/app/node_modules
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres-db
+    image: postgres:14
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-strapi}
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
